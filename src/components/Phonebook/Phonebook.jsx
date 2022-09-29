@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import FormAddContact from './FormAddContact';
 import ContactsList from './ContactsList';
+import Filter from './Filter';
 import { nanoid } from 'nanoid';
 
 export default class MyPhonebook extends Component {
@@ -36,11 +37,14 @@ export default class MyPhonebook extends Component {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+
   isDublicate({ name, number }) {
     const { contacts } = this.state;
+
     const result = contacts.find(
-      item => item.name === name && item.nmber === number
+      item => item.name === name && item.number === number
     );
+
     return result;
   }
 
@@ -69,16 +73,9 @@ export default class MyPhonebook extends Component {
       <div>
         <h1>Phonebook</h1>
         <FormAddContact onSubmit={addContact} />
-        <h2>Contacts</h2>{' '}
-        <label htmlFor="filter">
-          Find contacts by name
-          <input
-            type="text"
-            name="filter"
-            onChange={handleChange}
-            value={filter}
-          />
-        </label>
+
+        <h2>Contacts</h2>
+        <Filter onChange={handleChange} value={filter} />
         <ContactsList items={contacts} removeContact={removeContact} />
       </div>
     );

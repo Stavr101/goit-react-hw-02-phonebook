@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export default function ContactsList({ items, removeContact }) {
   //   console.log(items);
   const elements = items.map(({ name, id, number }) => {
@@ -10,3 +12,8 @@ export default function ContactsList({ items, removeContact }) {
   });
   return <ul>{elements}</ul>;
 }
+
+ContactsList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  removeContact: PropTypes.func.isRequired,
+};
